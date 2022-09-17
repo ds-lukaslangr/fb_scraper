@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "fb_scraper"
+version = "0.1.0"
+description = ""
+authors = ["Lukáš Langr <82815273+ds-lukaslangr@users.noreply.github.com>"]
+
+license = "MIT"
+
+packages = [
+    { include = "fb_scraper", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+pandas = "^1.4.4"
+facebook-scraper = "^0.2.59"
+
+[tool.poetry.dev-dependencies]
+black = "^22.8.0"
+pex = "^2.1.104"
+
+[tool.poetry.scripts]
+fb_scraper = "fb_scraper.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

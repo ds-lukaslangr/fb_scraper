@@ -42,6 +42,8 @@ jobs:
 
       - name: step 2 - Add artifacts to publish to the temp folder
         run: |
+          source $PWD/.venv/bin/activate
+          echo $PATH
           ./install.sh
           mv fb_scraper.exe artifacts/fb_scraper.exe
 

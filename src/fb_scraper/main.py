@@ -13,7 +13,7 @@ def main():
     for group_id in group_ids:
         print(f"Downloading group={group_id}...")
         download_posts(group_id)
-        print(f"Finished")
+        print("Finished")
 
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ def download_posts(group_id: str):
     path.mkdir(parents=True, exist_ok=True)
 
     df = pd.DataFrame(data)
-    df.to_csv(f"{path.as_posix()}/{group_id}.csv", index=False)
+    df.to_excel(f"{path.as_posix()}/{group_id}.xlsx", index=False)
     print(df.head())
 
 

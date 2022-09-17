@@ -14,10 +14,26 @@ packages = [
 python = ">=3.9,<3.12"
 pandas = "^1.4.4"
 facebook-scraper = "^0.2.59"
+openpyxl = "^3.0.10"
 
 [tool.poetry.dev-dependencies]
 black = "^22.8.0"
 pex = "^2.1.104"
+pylint = "^2.15.2"
+
+[tool.pylint.messages_control]
+disable = [
+    "missing-docstring",
+    "wrong-import-order",
+    "duplicate-code",
+    "line-too-long",
+    "too-many-arguments",
+    "too-few-public-methods",
+    "ungrouped-imports",
+    "too-many-locals",
+]
+
+good-names = ["df"]
 
 [tool.poetry.scripts]
 fb_scraper = "fb_scraper.main:main"

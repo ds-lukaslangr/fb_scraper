@@ -26,7 +26,6 @@ jobs:
         with:
           path: |
             .venv
-            ~/.poetry/env
           key: ${{ runner.os }}-env-${{ hashFiles('**/poetry.lock') }}
 
       - name: Set up environment
@@ -35,6 +34,5 @@ jobs:
       - name: Linting
         run: |
           source $PWD/.venv/bin/activate
-          source ~/.poetry/env
           black --check src
           pylint src

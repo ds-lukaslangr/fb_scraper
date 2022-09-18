@@ -20,12 +20,14 @@ openpyxl = "^3.0.10"
 black = "^22.8.0"
 pex = "^2.1.104"
 pylint = "^2.15.2"
+poethepoet = "^0.16.2"
 
 [tool.pylint.messages_control]
 disable = [
     "missing-docstring",
     "wrong-import-order",
     "duplicate-code",
+    "invalid-name",
     "line-too-long",
     "too-many-arguments",
     "too-few-public-methods",
@@ -41,3 +43,8 @@ fb_scraper = "fb_scraper.main:main"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+black = "black src"
+black-check = "black --check src"
+pylint = "pylint src"

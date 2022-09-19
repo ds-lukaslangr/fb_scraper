@@ -42,7 +42,8 @@ def get_date(datetime_: datetime) -> str:
 
 
 def get_max_date() -> datetime:
-    xlsx_files = Path("./fb_exports").glob("*.xlsx")
+    xlsx_files = list(Path("./fb_exports").glob("*.xlsx"))
+
     if not xlsx_files:
         return base_datetime
 

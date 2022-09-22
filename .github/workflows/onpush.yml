@@ -1,6 +1,9 @@
 name: Code check
 on:
   push:
+    branches:
+      - '*'
+      - '!master'
 
 jobs:
   build:
@@ -36,19 +39,3 @@ jobs:
           source $PWD/.venv/bin/activate
           black --check src
           pylint src
-
-      - name: Step 1 - Create a temporary artifact folder
-        run: mkdir artifacts
-
-      - name: step 2 - Add artifacts to publish to the temp folder
-        run: |
-          source $PWD/.venv/bin/activate
-          echo $PATH
-          ./install.sh
-          mv fb_scraper.exe artifacts/fb_scraper.exe
-
-      - name: Step 3 - Use the Upload Artifact GitHub Action
-        uses: actions/upload-artifact@v2
-        with:
-          name: fb_scraper_app
-          path: artifacts

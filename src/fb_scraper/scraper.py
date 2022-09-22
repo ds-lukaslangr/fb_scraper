@@ -2,17 +2,41 @@ from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
-from facebook_scraper import get_posts
+from facebook_scraper import get_posts, get_group_info
 
 fields_to_extract = [
+    "text",
+    "post_text",
+    "shared_text",
+    "original_text",
     "time",
+    "image",
+    "images",
+    "images_description",
+    "video",
+    "video_duration_seconds",
+    "video_id",
+    "video_thumbnail",
+    "likes",
+    "comments",
+    "shares",
+    "post_url",
+    "link",
+    "links",
     "user_id",
     "username",
-    "post_url",
-    "likes",
-    "shares",
+    "factcheck",
+    "shared_post_id",
+    "shared_user_id",
+    "shared_username",
+    "comments_full",
     "reactors",
-    "text",
+    "reactions",
+    "reaction_count",
+    "page_id",
+    "sharers",
+    "image_id",
+    "image_ids",
 ]
 
 date_format = "%Y%m%d_%H%M%S"
@@ -20,11 +44,17 @@ base_datetime = datetime(1, 1, 1)
 
 
 def download_posts(group_id: str):
+    group_info = get_group_info(group_id)
+    group_name = group_info["name"]
+    print(f"Downloading group {group_name} {group_id}...")
+
     data = {field: [] for field in fields_to_extract}
     max_date = get_max_date()
     new_max_date = base_datetime
 
-    for post in get_posts(group_id, pages=10):
+    for post in get_posts(
+        group_id, pages=100, options={"progress": True, "posts_per_page": 200}
+    ):
         if post["time"] < max_date:
             continue
 
@@ -34,7 +64,7 @@ def download_posts(group_id: str):
             if post["time"] > new_max_date:
                 new_max_date = post["time"]
 
-    return data, new_max_date
+    return data, group_name, new_max_date
 
 
 def get_date(datetime_: datetime) -> str:
@@ -59,9 +89,9 @@ def write(data, max_date):
 
     # pylint: disable=abstract-class-instantiated
     with pd.ExcelWriter(f"{path.as_posix()}/{date_str}.xlsx") as writer:
-        for group_id, sheet in data.items():
-            print(f"Writing group={group_id}...")
+        for group_name, sheet in data.items():
+            print(f"Writing group={group_name}...")
             df = pd.DataFrame(sheet)
-            df.to_excel(writer, sheet_name=group_id, index=False)
+            df.to_excel(writer, sheet_name=group_name, index=False)
             print(df.head())
             print("Write finished.")

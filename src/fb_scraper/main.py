@@ -12,8 +12,9 @@ def main():
     max_date = base_datetime
 
     for group_id in group_ids:
-        print(f"Downloading group={group_id}...")
-        data[group_id], new_max_date = download_posts(group_id)
+        downloaded_data, group_name, new_max_date = download_posts(group_id)
+        data[group_name] = downloaded_data
+
         if new_max_date > max_date:
             max_date = new_max_date
         print("Download finished.")

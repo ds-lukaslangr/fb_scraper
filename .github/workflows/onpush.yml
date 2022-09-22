@@ -37,5 +37,5 @@ jobs:
       - name: Linting
         run: |
           source $PWD/.venv/bin/activate
-          black --check src
-          pylint src
+          poe black-check
+          poe pylint
